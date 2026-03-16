@@ -1,0 +1,44 @@
+aid: delta-lake
+name: Delta Lake
+description: >-
+  Delta Lake is an incubation-stage project under LF AI and Data Foundation providing an open source storage framework for building Lakehouse architectures. Originally contributed by Databricks, it adds reliability, quality, and performance to data lakes with ACID transactions, schema enforcement, and time travel.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Data
+  - Storage
+  - Lakehouse
+  - Linux Foundation
+created: '2026-03-16'
+modified: '2026-03-16'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/delta-lake/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: delta-lake:delta-lake-api
+    name: Delta Lake API
+    description: >-
+      Programmatic access to Delta Lake storage APIs, table management tools, and Lakehouse architecture resources.
+    humanURL: https://docs.delta.io/
+    tags:
+  - Data
+  - Storage
+  - Lakehouse
+  - Linux Foundation
+    properties:
+      - type: Documentation
+        url: https://docs.delta.io/
+common:
+  - type: Documentation
+    name: Delta Lake Documentation
+    description: Official documentation for Delta Lake.
+    url: https://docs.delta.io/
+  - type: GitHubOrg
+    name: Delta Lake GitHub
+    description: Source code and repositories for Delta Lake.
+    url: https://github.com/delta-io
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
