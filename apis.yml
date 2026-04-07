@@ -23,10 +23,10 @@ apis:
       Programmatic access to Delta Lake storage APIs, table management tools, and Lakehouse architecture resources.
     humanURL: https://docs.delta.io/
     tags:
-  - Data
-  - Storage
-  - Lakehouse
-  - Linux Foundation
+      - Data
+      - Storage
+      - Lakehouse
+      - Linux Foundation
     properties:
       - type: Documentation
         url: https://docs.delta.io/
