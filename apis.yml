@@ -8,9 +8,9 @@ access: 3rd-Party
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Data
-  - Storage
   - Lakehouse
   - Linux Foundation
+  - Storage
 created: '2026-03-16'
 modified: '2026-03-16'
 url: >-
@@ -24,9 +24,9 @@ apis:
     humanURL: https://docs.delta.io/
     tags:
       - Data
-      - Storage
       - Lakehouse
       - Linux Foundation
+      - Storage
     properties:
       - type: Documentation
         url: https://docs.delta.io/
