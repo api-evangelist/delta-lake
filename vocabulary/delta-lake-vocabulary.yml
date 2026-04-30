@@ -1,0 +1,25 @@
+name: Delta Lake Vocabulary
+description: >-
+  Shared vocabulary of terms used across Delta Lake, Delta Sharing, and
+  catalog-managed Delta table specifications.
+terms:
+  - term: Delta Table
+    definition: A Parquet-backed table whose state is described by a Delta transaction log enabling ACID semantics.
+  - term: Transaction Log
+    definition: An ordered sequence of JSON commit files (the _delta_log) that defines the current and historical state of a Delta table.
+  - term: Checkpoint
+    definition: A periodic snapshot of the transaction log persisted as Parquet to speed up state reconstruction.
+  - term: Time Travel
+    definition: The ability to query a Delta table at a previous version or timestamp.
+  - term: Schema Enforcement
+    definition: Validation that writes conform to the table's declared schema before commits are accepted.
+  - term: UniForm
+    definition: Delta universal format that allows a Delta table to be read as Iceberg or Hudi without copying data.
+  - term: Delta Sharing
+    definition: An open REST protocol for sharing Delta tables across organizations using signed URLs to underlying files.
+  - term: Catalog-Managed Table
+    definition: A Delta table whose scan planning and commit metadata are delegated to an external catalog via the Iceberg REST Catalog protocol.
+  - term: Share
+    definition: A Delta Sharing top-level container of one or more schemas published by a sharing server.
+  - term: Recipient
+    definition: A consumer of a share authenticated via bearer token in the Delta Sharing protocol.
