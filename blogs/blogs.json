@@ -1,0 +1,13 @@
+{
+  "repo": "delta-lake",
+  "feeds": [
+    {
+      "source": "https://delta.io/blog/",
+      "feed_url": "https://delta.io/rss.xml",
+      "saved": 10,
+      "title": "Delta Lake Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:26:56Z"
+}
