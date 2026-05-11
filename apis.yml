@@ -101,6 +101,14 @@ common:
     url: https://go.delta.io/slack
   - type: Vocabulary
     url: vocabulary/delta-lake-vocabulary.yml
+  - type: Integrations
+    url: https://delta.io/integrations/
+integrations:
+  - name: The Linux Foundation Projects
+  - name: Delta Lake
+  - name: logo
+  - name: UniForm
+  - name: The Linux Foundation
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
