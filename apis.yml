@@ -87,6 +87,8 @@ apis:
       - type: Protocol
         url: https://github.com/delta-io/delta/blob/master/PROTOCOL.md
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/deltalake
   - type: Website
     url: https://delta.io/
   - type: Documentation
