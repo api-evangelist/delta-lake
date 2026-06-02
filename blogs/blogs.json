@@ -2,12 +2,20 @@
   "repo": "delta-lake",
   "feeds": [
     {
-      "source": "https://delta.io/blog/",
+      "source": "https://delta.io/rss.xml",
       "feed_url": "https://delta.io/rss.xml",
-      "title": "Delta Lake Blog",
-      "saved": 45
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://github.com/delta-io",
+      "feed_url": "https://github.com/delta-io",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 56,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 57,
+  "fetched": "2026-06-01T23:35:02Z"
 }
