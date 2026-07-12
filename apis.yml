@@ -87,6 +87,8 @@ apis:
       - type: Protocol
         url: https://github.com/delta-io/delta/blob/master/PROTOCOL.md
 common:
+  - type: DomainSecurity
+    url: security/delta-lake-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/deltalake
   - type: Website
