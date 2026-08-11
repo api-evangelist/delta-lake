@@ -99,6 +99,15 @@ apis:
       - type: Protocol
         url: https://github.com/delta-io/delta/blob/master/PROTOCOL.md
 common:
+  - type: IssueTracker
+    url: https://github.com/delta-io/delta/issues
+  - type: CodeOfConduct
+    url: https://github.com/delta-io/delta/blob/master/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/delta-io/delta/blob/master/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/delta-io/delta/blob/master/LICENSE
   - type: DomainSecurity
     url: security/delta-lake-domain-security.yml
   - type: LinkedIn
