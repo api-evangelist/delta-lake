@@ -10,6 +10,18 @@ description: >-
   Delta Sharing (an open protocol for secure data sharing) and
   catalog-managed tables built on the Iceberg REST Catalog protocol.
 type: Index
+deliveryModel:
+  model: self-hosted
+  license: Apache-2.0
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
