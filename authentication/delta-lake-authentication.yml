@@ -1,0 +1,12 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/delta-lake-delta-sharing-protocol-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/delta-lake-delta-sharing-protocol-openapi.yml

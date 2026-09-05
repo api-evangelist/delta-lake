@@ -1,0 +1,70 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/delta-lake-delta-sharing-protocol-openapi.yml (4xx/5xx responses and the
+  CommonErrorResponse schema), enriched from
+  https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md
+provider: Delta Lake
+providerId: delta-lake
+api: Delta Sharing Protocol
+format: vendor-json
+rfc9457: false
+envelope:
+  content_type: application/json
+  fields:
+    - name: errorCode
+      type: string
+      description: >-
+        A server-defined machine-readable error identifier. The protocol declares the field and
+        its type but does not publish a closed registry of values, so the specific codes a
+        recipient sees are determined by the sharing server implementation.
+    - name: message
+      type: string
+      description: Human-readable description of the failure.
+  example_shape: '{"errorCode": "string", "message": "string"}'
+  note: >-
+    The Delta Sharing error envelope is NOT RFC 9457 application/problem+json. It is a
+    two-field JSON object served as application/json, uniform across every operation.
+problem_types:
+  - status: 400
+    title: Bad request
+    description: >-
+      The request is malformed — an unparsable body, an out-of-range maxResults, an invalid
+      pageToken, an unsupported fileidhash value, or a predicate that cannot be parsed.
+    applies_to: all operations
+    remediation: >-
+      Correct the request. For fileidhash the server must return 400 on any value other than
+      parquet or delta.
+  - status: 401
+    title: Unauthenticated
+    description: The request is unauthenticated — the bearer token is missing or incorrect.
+    applies_to: all operations
+    remediation: >-
+      Send Authorization: Bearer {token} using the bearerToken from the recipient's profile
+      file. If expirationTime has passed, obtain a new profile file from the data provider.
+  - status: 403
+    title: Forbidden
+    description: >-
+      The recipient is authenticated but is not permitted to reach the requested share, schema
+      or table.
+    applies_to: all operations
+    remediation: Ask the data provider to grant the recipient access to the share.
+  - status: 404
+    title: Not found
+    description: The named share, schema, table or query id does not exist or is not visible to the recipient.
+    applies_to: all operations
+    remediation: >-
+      List the parent collection first — ListShares, ListSchemas, ListTables — rather than
+      constructing names. Object names are case-insensitive.
+  - status: 500
+    title: Internal server error
+    description: The request was not handled correctly due to a server error.
+    applies_to: all operations
+    remediation: Retry with backoff; these are safe to retry because every operation is read-only.
+gaps:
+  - >-
+    No error-code registry is published. errorCode is declared as an untyped string in both the
+    OpenAPI and PROTOCOL.md, so an agent cannot branch on a known set of values — only on the
+    HTTP status. This is the single largest error-semantics gap in the contract.
+  - >-
+    No 429 / rate-limit response is defined anywhere in the protocol or the OpenAPI.

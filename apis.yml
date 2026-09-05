@@ -54,7 +54,7 @@ tags_raw:
   - Storage
   - Streaming
 created: '2026-03-16'
-modified: '2026-04-28'
+modified: '2026-09-05'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/delta-lake/refs/heads/main/apis.yml
 specificationVersion: '0.23'
@@ -83,6 +83,19 @@ apis:
         url: https://github.com/delta-io/delta
       - type: ReleaseNotes
         url: https://github.com/delta-io/delta/releases
+      - type: APIReference
+        url: https://docs.delta.io/delta-apidoc/
+      - type: Protobuf
+        name: Delta Connect (base)
+        url: grpc/delta-lake-delta-connect-base.proto
+      - type: Protobuf
+        name: Delta Connect (commands)
+        url: grpc/delta-lake-delta-connect-commands.proto
+      - type: Protobuf
+        name: Delta Connect (relations)
+        url: grpc/delta-lake-delta-connect-relations.proto
+      - type: LLMsTxt
+        url: llms/delta-lake-llms.txt
   - aid: delta-lake:delta-sharing
     name: Delta Sharing Protocol
     description: >-
@@ -91,6 +104,7 @@ apis:
       expose endpoints for listing shares, schemas, and tables, and for
       retrieving signed URLs to underlying data files.
     humanURL: https://delta.io/sharing/
+    baseURL: https://sharing.delta.io/delta-sharing/
     tags:
       - Data Sharing
       - Open Protocol
@@ -102,6 +116,17 @@ apis:
         url: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md
       - type: SourceCode
         url: https://github.com/delta-io/delta-sharing
+      - type: OpenAPI
+        url: openapi/delta-lake-delta-sharing-protocol-openapi.yml
+      - type: Overlay
+        url: overlays/delta-lake-delta-sharing-protocol-overlay.yaml
+      - type: Protobuf
+        name: Delta Sharing reference server response objects
+        url: grpc/delta-lake-delta-sharing-protocol.proto
+      - type: X-MCPServerCandidate
+        url: mcp/delta-lake-mcp.yml
+      - type: ReleaseNotes
+        url: https://github.com/delta-io/delta-sharing/releases
   - aid: delta-lake:delta-catalog
     name: Delta Catalog-Managed Tables
     description: >-
@@ -119,6 +144,8 @@ apis:
       - type: Protocol
         url: https://github.com/delta-io/delta/blob/master/PROTOCOL.md
 common:
+  - type: Authentication
+    url: authentication/delta-lake-authentication.yml
   - type: IssueTracker
     url: https://github.com/delta-io/delta/issues
   - type: CodeOfConduct
@@ -127,7 +154,7 @@ common:
     url: https://github.com/delta-io/delta/blob/master/CONTRIBUTING.md
   - type: License
     name: Apache-2.0
-    url: https://github.com/delta-io/delta/blob/master/LICENSE
+    url: https://github.com/delta-io/delta/blob/master/LICENSE.txt
   - type: DomainSecurity
     url: security/delta-lake-domain-security.yml
   - type: LinkedIn
@@ -148,6 +175,44 @@ common:
     url: vocabulary/delta-lake-vocabulary.yml
   - type: Integrations
     url: https://delta.io/integrations/
+  - type: Packages
+    url: packages/delta-lake-packages.yml
+  - type: SDKs
+    url: packages/delta-lake-packages.yml
+  - type: LLMsTxt
+    url: llms/delta-lake-llms.txt
+  - type: Conformance
+    url: conformance/delta-lake-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/delta-lake-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/delta-lake-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/delta-lake-changelog.yml
+  - type: ErrorCatalog
+    url: errors/delta-lake-problem-types.yml
+  - type: Conventions
+    url: conventions/delta-lake-conventions.yml
+  - type: Idempotency
+    url: conventions/delta-lake-conventions.yml
+  - type: DataModel
+    url: data-model/delta-lake-data-model.yml
+  - type: Sandbox
+    url: sandbox/delta-lake-sandbox.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: APIReference
+    url: https://docs.delta.io/delta-apidoc/
+  - type: GettingStarted
+    url: https://delta.io/learn/getting-started
+  - type: Support
+    url: https://delta.io/resources/getting-help
+  - type: Roadmap
+    url: https://delta.io/roadmap
+  - type: TermsOfService
+    url: https://lfprojects.org/policies/terms-of-use/
+  - type: PrivacyPolicy
+    url: https://lfprojects.org/policies/privacy-policy/
 integrations:
   - name: The Linux Foundation Projects
   - name: Delta Lake
@@ -157,3 +222,8 @@ integrations:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v3

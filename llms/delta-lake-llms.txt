@@ -1,0 +1,27 @@
+# Delta Lake
+
+> Delta Lake is an open-source storage framework that brings ACID transactions, scalable metadata handling, schema enforcement, time travel, and unified batch + streaming to data lakes. It is most commonly used with Apache Spark but has connectors for many engines.
+
+## Other Delta Lake documentation sets
+
+These resources live outside this Starlight site and are not inlined above:
+
+- Delta Kernel (Rust) user guide — LLM index: https://docs.delta.io/kernel/rust/llms.txt
+- Delta Kernel (Rust) user guide — full text: https://docs.delta.io/kernel/rust/llms-full.txt
+- API reference (Scala / Java / Python), HTML only: https://docs.delta.io/api/latest/
+- Delta protocol specification: https://github.com/delta-io/delta/blob/master/PROTOCOL.md
+
+## Documentation Sets
+
+- [Abridged documentation](https://docs.delta.io/llms-small.txt): a compact version of the documentation for Delta Lake, with non-essential content removed
+- [Complete documentation](https://docs.delta.io/llms-full.txt): the full documentation for Delta Lake
+
+## Notes
+
+- The complete documentation includes all content from the official documentation
+- The content is automatically generated from the same source as the official documentation
+
+## Optional
+
+- [Delta Kernel (Rust) user guide — full text](https://docs.delta.io/kernel/rust/llms-full.txt): Reading and writing Delta tables with the Rust Delta Kernel.
+- [API reference (Scala / Java / Python)](https://docs.delta.io/api/latest/): Generated API documentation (HTML).

@@ -1,0 +1,84 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/delta-lake-delta-sharing-protocol-openapi.yml
+provider: Delta Lake
+providerId: delta-lake
+status: candidate
+description: >-
+  Delta Lake publishes no Model Context Protocol server. A web search on 2026-09-05 found
+  only third-party Delta Lake MCP implementations (BERDataLakehouse/datalake-mcp-server,
+  dotsering/delta-mcp-server, Databricks' lakehouse MCP server) — none of them published by
+  the delta-io organization or referenced from delta.io or docs.delta.io. The tools below
+  are a CANDIDATE surface derived from the nine operations in the first-party Delta Sharing
+  Protocol OpenAPI. Nothing here is hosted or installable today.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+  note: >-
+    No hosted endpoint and no stdio package exist. Delta Sharing is a self-hosted protocol —
+    any MCP server for it would be operated by whoever runs the sharing server, not by the
+    Delta Lake project. Do not treat this record as a reachable agent surface.
+candidate_tools:
+  - name: list_shares
+    operationId: ListShares
+    method: GET
+    path: /shares
+    description: List the shares accessible to the authenticated recipient.
+  - name: get_share
+    operationId: GetShare
+    method: GET
+    path: /shares/{share}
+    description: Retrieve the metadata for a single share.
+  - name: list_schemas
+    operationId: ListSchemas
+    method: GET
+    path: /shares/{share}/schemas
+    description: List the schemas contained in a share.
+  - name: list_tables
+    operationId: ListTables
+    method: GET
+    path: /shares/{share}/schemas/{schema}/tables
+    description: List the tables contained in a schema.
+  - name: list_all_tables
+    operationId: ListALLTables
+    method: GET
+    path: /shares/{share}/all-tables
+    description: List every table in a share across all of its schemas.
+  - name: get_table_version
+    operationId: GetTableVersion
+    method: GET
+    path: /shares/{share}/schemas/{schema}/tables/{table}/version
+    description: Return the current table version, optionally as of a timestamp.
+  - name: get_table_metadata
+    operationId: GetTableMetadata
+    method: GET
+    path: /shares/{share}/schemas/{schema}/tables/{table}/metadata
+    description: Return the protocol and metadata actions describing a shared table.
+  - name: query_table
+    operationId: QueryTable
+    method: POST
+    path: /shares/{share}/schemas/{schema}/tables/{table}/query
+    description: >-
+      Query a shared table and receive protocol, metadata and file actions carrying
+      pre-signed URLs to the underlying data files.
+  - name: get_table_changes
+    operationId: GetTableChanges
+    method: GET
+    path: /shares/{share}/schemas/{schema}/tables/{table}/changes
+    description: Read the change data feed for a shared table over a version or timestamp range.
+spec_gaps:
+  - operation: Get Query Info
+    path: '{prefix}/shares/{share}/schemas/{schema}/tables/{table}/queries/{queryId}'
+    note: >-
+      Documented in PROTOCOL.md (asyncQuery polling) but absent from the published OpenAPI,
+      which still declares info.version 0.2. Not derived into a candidate tool because there
+      is no machine-readable operation to bind it to.
+  - operation: Generate Temporary Table Credential
+    path: '{prefix}/shares/{share}/schemas/{schema}/tables/{table}/temporary-table-credentials'
+    note: >-
+      Documented in PROTOCOL.md (directory-based access mode) but absent from the published
+      OpenAPI.

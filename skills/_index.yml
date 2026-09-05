@@ -1,0 +1,34 @@
+generated: '2026-09-05'
+method: generated
+source: >-
+  openapi/delta-lake-delta-sharing-protocol-openapi.yml and
+  https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md
+provider: Delta Lake
+providerId: delta-lake
+description: >-
+  Packaged Agent Skills for the Delta Sharing REST protocol, the only network API the Delta
+  Lake project specifies. Every operationId referenced below was read from the published
+  OpenAPI; none is invented. No skills are packaged for the Delta Lake storage framework or
+  Delta Connect, which are library and RPC surfaces rather than callable HTTP APIs.
+skills:
+  - name: delta-lake-discover-shared-data
+    file: skills/delta-lake-discover-shared-data.md
+    api: Delta Sharing Protocol
+    operations: [ListShares, GetShare, ListSchemas, ListTables, ListALLTables]
+    summary: Walk the share / schema / table namespace a recipient token can see.
+  - name: delta-lake-read-shared-table
+    file: skills/delta-lake-read-shared-table.md
+    api: Delta Sharing Protocol
+    operations: [GetTableVersion, GetTableMetadata, QueryTable]
+    summary: Resolve a version, read the schema, and fetch pre-signed data file URLs.
+  - name: delta-lake-read-change-data-feed
+    file: skills/delta-lake-read-change-data-feed.md
+    api: Delta Sharing Protocol
+    operations: [GetTableVersion, GetTableMetadata, GetTableChanges]
+    summary: Sync incrementally over a bounded version or timestamp range.
+provider_published_skills:
+  found: false
+  probed:
+    - url: https://docs.delta.io/llms.txt
+      status: 200
+      note: A real llms.txt, but a documentation index — no AGENTS.md or packaged skills.

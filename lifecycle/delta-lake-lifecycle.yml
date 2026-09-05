@@ -1,0 +1,98 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://github.com/delta-io/delta/releases, https://github.com/delta-io/delta-sharing/releases,
+  https://github.com/delta-io/delta/blob/master/PROTOCOL.md,
+  https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md, https://delta.io/roadmap
+  (all fetched 2026-09-05)
+provider: Delta Lake
+providerId: delta-lake
+versioning:
+  scheme: semver
+  current:
+    delta_lake: 4.4.0
+    delta_lake_released: '2026-08-20'
+    delta_lake_lts_line: 3.3.3
+    delta_lake_lts_released: '2026-08-12'
+    delta_sharing_server: 1.4.1
+    delta_sharing_server_released: '2026-07-22'
+    delta_sharing_python_client: 1.4.2
+    delta_sharing_python_client_released: '2026-08-12'
+  cadence: >-
+    Two active lines are maintained in parallel — a 4.x line tracking current Apache Spark and
+    a 3.x maintenance line. Six feature or patch releases shipped between 2026-01-16 and
+    2026-08-20.
+  compatibility_mechanism: >-
+    Delta Lake does not version the storage format with a URL or media type. Compatibility is
+    negotiated through the transaction log itself: minReaderVersion / minWriterVersion plus
+    the Table Features mechanism, where a table enumerates the named features a client must
+    understand to read or write it. The Delta Sharing REST protocol negotiates separately
+    through the delta-sharing-capabilities request header.
+  docs:
+    - https://github.com/delta-io/delta/blob/master/PROTOCOL.md#table-features
+    - https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#delta-sharing-capabilities-header
+deprecation:
+  policy_published: partial
+  mechanism: >-
+    Deprecations are announced inline in the normative protocol specifications with a named
+    replacement, and where a date is committed it is stated in the spec text. There is no
+    separate written deprecation policy document, no Sunset or Deprecation response header
+    (RFC 8594), and no deprecation feed.
+  deprecated:
+    - item: HEAD /shares/{share}/schemas/{schema}/tables/{table} (Query Table Version)
+      replacement: GET .../tables/{table}/version
+      stated_date: '2023-07-01'
+      evidence: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#query-table-version
+      note: >-
+        The spec states "we encourage that the HEAD API be deprecated by 07/01/2023" and marks
+        the HEAD form "(deprecated)" in the request table. The published OpenAPI only declares
+        the GET form, so the deprecated variant is spec-documented but not machine-readable.
+    - item: predicateHints (SQL-expression file filtering in QueryTable)
+      replacement: jsonPredicateHints
+      stated_date: null
+      evidence: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#sql-expressions-for-filtering
+      note: >-
+        "We will deprecate the legacy predicateHints once all the delta sharing client and
+        servers have moved to the json predicate based file filtering." No date is committed.
+    - item: delta-iceberg (UniForm Iceberg module) on the 3.x line
+      replacement: null
+      stated_date: '2026-08-12'
+      evidence: https://github.com/delta-io/delta/releases/tag/v3.3.3
+      note: >-
+        The 3.3.3 release notes state the patch release does not publish delta-iceberg. A
+        module withdrawn from a maintenance release, called out in the release notes.
+  deprecated_operations_in_spec: 0
+  deprecated_operations_note: >-
+    No operation in openapi/delta-lake-delta-sharing-protocol-openapi.yml carries
+    deprecated: true.
+status_page:
+  published: false
+  note: >-
+    No status page exists and none is expected: Delta Lake is a self-hosted storage framework
+    and a self-hosted sharing protocol, so there is no service whose availability the project
+    could report. status.delta.io does not resolve (probed 2026-09-05, connection failed).
+    No StatusPage pointer is emitted.
+sla:
+  published: false
+  note: Open source project under LF Projects, LLC. No service-level agreement is offered.
+support:
+  channels:
+    - name: Slack
+      url: https://go.delta.io/slack
+    - name: GitHub Issues
+      url: https://github.com/delta-io/delta/issues
+    - name: Getting Help
+      url: https://delta.io/resources/getting-help
+    - name: Stack Overflow
+      url: https://stackoverflow.com/questions/tagged/delta-lake
+roadmap:
+  published: true
+  url: https://delta.io/roadmap
+  note: >-
+    The roadmap page is a navigation hub to a GitHub project board and per-component
+    repositories. It names no versions, dates or quarters (fetched 2026-09-05).
+governance:
+  foundation: LF AI & Data Foundation
+  status: graduated
+  url: https://lfaidata.foundation/projects/delta-lake/
+  license: Apache-2.0

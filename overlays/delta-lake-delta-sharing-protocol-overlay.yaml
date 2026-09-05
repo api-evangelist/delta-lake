@@ -1,0 +1,108 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements to the Delta Sharing Protocol OpenAPI
+  version: 1.0.0
+x-provenance:
+  generated: '2026-09-05'
+  method: generated
+  source: openapi/delta-lake-delta-sharing-protocol-openapi.yml
+  extends: openapi/delta-lake-delta-sharing-protocol-openapi.yml
+  note: >-
+    Non-destructive enhancements only. The original specification is left byte-for-byte as
+    published in https://github.com/delta-io/delta-sharing/blob/main/delta-sharing-protocl-api-description.yml
+    (note the typo in the upstream filename). Every action below is either a correction the
+    provider's own repository contradicts, or a pointer to an artifact in this repo. Nothing
+    invents API behaviour.
+actions:
+  - target: $.info
+    description: >-
+      Correct the license. The document declares "AGPL v3.0", but the delta-io/delta-sharing
+      repository that publishes it is Apache-2.0 (confirmed via the GitHub repository license
+      field, 2026-09-05) and the project ships Apache-2.0 artifacts to Maven Central.
+    update:
+      license:
+        name: Apache-2.0
+        url: https://github.com/delta-io/delta-sharing/blob/main/LICENSE.txt
+  - target: $.info
+    description: >-
+      Add the contact the project publishes on its own site; the upstream document carries an
+      empty contact.email string.
+    update:
+      contact:
+        name: Delta Lake community
+        url: https://delta.io/resources/getting-help
+  - target: $.info
+    description: >-
+      Record that the published document lags the normative prose specification. info.version
+      is 0.2 while PROTOCOL.md documents Get Query Info and Generate Temporary Table
+      Credential, neither of which appears in paths.
+    update:
+      x-spec-lag:
+        machine_readable_version: '0.2'
+        normative_specification: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md
+        undocumented_operations:
+          - Get Query Info
+          - Generate Temporary Table Credential
+  - target: $.info
+    description: Cross-link the derived artifacts in this repository.
+    update:
+      x-artifacts:
+        conventions: conventions/delta-lake-conventions.yml
+        errors: errors/delta-lake-problem-types.yml
+        data_model: data-model/delta-lake-data-model.yml
+        conformance: conformance/delta-lake-conformance.yml
+        authentication: authentication/delta-lake-authentication.yml
+        lifecycle: lifecycle/delta-lake-lifecycle.yml
+        sandbox: sandbox/delta-lake-sandbox.yml
+        skills: skills/_index.yml
+  - target: $.servers
+    description: >-
+      Annotate the servers block. The demo server was probed live on 2026-09-05 and answered
+      HTTP 200 anonymously; the localhost entry is a development placeholder, not a callable host.
+    update:
+      x-server-notes:
+        - url: https://sharing.delta.io/delta-sharing/
+          role: open demo server operated by the Delta Lake project
+          probed: '2026-09-05'
+          http_status: 200
+        - url: http://localhost:8000/api/v1
+          role: local development placeholder
+        - note: >-
+            Delta Sharing is a self-hosted protocol. In production the base URL is whatever the
+            data provider's own sharing server publishes, carried in the recipient's profile file
+            endpoint field.
+  - target: $.components.schemas.TableMetadataResponse
+    description: >-
+      Record that this schema is declared as a bare string. The real body is newline-delimited
+      JSON action objects defined in PROTOCOL.md, so generated clients cannot type it.
+    update:
+      x-real-shape: application/x-ndjson — protocol action followed by metaData action
+      x-shape-source: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#api-response-actions
+  - target: $.components.schemas.TableQueryResponse
+    description: Record the real newline-delimited JSON shape behind the bare string type.
+    update:
+      x-real-shape: >-
+        application/x-ndjson — protocol, metaData, one file/add action per data file,
+        optionally terminated by endStreamAction
+      x-shape-source: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#api-response-actions
+  - target: $.components.schemas.ChangeDataFeedResponse
+    description: Record the real newline-delimited JSON shape behind the bare string type.
+    update:
+      x-real-shape: >-
+        application/x-ndjson — protocol, metaData, then add/cdf/remove actions across the
+        requested version or timestamp range
+      x-shape-source: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#data-change-files
+  - target: $.paths['/shares/{share}/schemas/{schema}/tables/{table}/query'].post
+    description: >-
+      Record the idempotency and capability semantics PROTOCOL.md defines for this operation
+      but the document omits.
+    update:
+      x-idempotency:
+        field: idempotencyKey
+        location: requestBody
+        applies_when: the client negotiates asyncquery=true via delta-sharing-capabilities
+        docs: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#asyncquery
+      x-capabilities-header:
+        name: delta-sharing-capabilities
+        keys: [responseformat, readerfeatures, includeendstreamaction, asyncquery]
+        docs: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#delta-sharing-capabilities-header

@@ -1,0 +1,141 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/delta-lake-delta-sharing-protocol-openapi.yml (components.schemas and $ref graph),
+  enriched from https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md
+provider: Delta Lake
+providerId: delta-lake
+api: Delta Sharing Protocol
+description: >-
+  The Delta Sharing entity graph is a three-level namespace — share, schema, table — with
+  each level addressed by name rather than by an opaque id. Names are case-insensitive and
+  are the join key; the only id in the model is Share.id, which is optional. Table content is
+  not modelled as entities: query responses are newline-delimited JSON action objects
+  (protocol, metaData, file/add/cdf/remove, endStreamAction) carried as opaque strings in the
+  OpenAPI, with their real shapes defined in PROTOCOL.md.
+entities:
+  - name: Share
+    description: Top-level container a data provider publishes to a recipient.
+    identifier: name
+    fields:
+      - name: name
+        type: string
+        note: Case-insensitive, max 255 chars. The addressing key.
+      - name: id
+        type: string
+        note: Optional opaque identifier. The only non-name identifier in the model.
+    operations: [ListShares, GetShare]
+  - name: Schema
+    description: A namespace of tables inside a share.
+    identifier: name
+    fields:
+      - name: name
+        type: string
+      - name: share
+        type: string
+        note: Back-reference to the owning share, by name.
+    operations: [ListSchemas]
+  - name: Table
+    description: A shared Delta table.
+    identifier: name
+    fields:
+      - name: name
+        type: string
+      - name: schema
+        type: string
+        note: Back-reference to the owning schema, by name.
+      - name: share
+        type: string
+        note: Back-reference to the owning share, by name.
+    operations: [ListTables, ListALLTables, GetTableVersion, GetTableMetadata, QueryTable, GetTableChanges]
+  - name: QueryRequest
+    description: Request body for QueryTable — the filter and point-in-time selection for a read.
+    identifier: null
+    fields:
+      - name: predicateHints
+        type: array
+        note: Legacy SQL-expression filters; PROTOCOL.md states these will be deprecated.
+      - name: jsonPredicateHints
+        type: object
+        note: Current JSON predicate filter shape.
+      - name: limitHint
+        type: integer
+      - name: version
+        type: integer
+      - name: timestamp
+        type: string
+      - name: startingVersion
+        type: integer
+      - name: endingVersion
+        type: integer
+      - name: includeHistoricalProtocol
+        type: boolean
+  - name: CommonErrorResponse
+    description: The uniform error envelope returned on every 4xx and 5xx.
+    identifier: null
+    fields:
+      - name: errorCode
+        type: string
+      - name: message
+        type: string
+relationships:
+  - from: Share
+    to: Schema
+    kind: has_many
+    via: Schema.share
+  - from: Schema
+    to: Share
+    kind: belongs_to
+    via: Schema.share
+  - from: Schema
+    to: Table
+    kind: has_many
+    via: Table.schema
+  - from: Table
+    to: Schema
+    kind: belongs_to
+    via: Table.schema
+  - from: Table
+    to: Share
+    kind: belongs_to
+    via: Table.share
+  - from: Share
+    to: Table
+    kind: has_many
+    via: Table.share
+    note: Materialised directly by the ListALLTables operation, which flattens across schemas.
+envelopes:
+  - name: ListShareResponse
+    wraps: Share
+    fields: [items, nextPageToken]
+  - name: ListSchemasResponse
+    wraps: Schema
+    fields: [items, nextPageToken]
+  - name: ListTablesResponse
+    wraps: Table
+    fields: [items, nextPageToken]
+opaque_payloads:
+  - name: TableMetadataResponse
+    declared_type: string
+    real_shape: >-
+      Newline-delimited JSON: a protocol action then a metaData action, as defined in the
+      API Response Actions sections of PROTOCOL.md.
+  - name: TableQueryResponse
+    declared_type: string
+    real_shape: >-
+      Newline-delimited JSON: protocol, metaData, then one file/add action per data file,
+      optionally terminated by an endStreamAction.
+  - name: ChangeDataFeedResponse
+    declared_type: string
+    real_shape: >-
+      Newline-delimited JSON: protocol, metaData, then add/cdf/remove actions over the
+      requested version or timestamp range.
+gaps:
+  - >-
+    Three of the twelve component schemas (TableMetadataResponse, TableQueryResponse,
+    ChangeDataFeedResponse) are typed as bare strings. The response bodies that carry all the
+    actual data are therefore invisible to any generated client, and a consumer must read
+    PROTOCOL.md to parse them. This is the largest contract-quality gap in the spec.
+  - >-
+    No id-prefix scheme exists. Every relationship is a name reference, so a client cannot
+    tell a share name from a schema name out of context.

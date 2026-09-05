@@ -1,0 +1,102 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Direct HTTPS GETs of the named /.well-known/ path list against every host this record
+  knows: the registrable domain and www, the docs host, the Delta Sharing demo server host
+  named in the OpenAPI servers[] block, and the go.delta.io redirect host.
+provider: Delta Lake
+providerId: delta-lake
+result: >-
+  No /.well-known/ discovery document is served on any Delta Lake host. Every path 404s on
+  delta.io, www.delta.io, docs.delta.io and sharing.delta.io. go.delta.io answers HTTP 200
+  to every /.well-known/ path with the delta.io Astro single-page shell, which is a catch-all
+  route and not a document — recorded as a miss. No WellKnown, SecurityTxt or AgentCard
+  pointer is emitted, because the project serves none of these surfaces.
+hosts:
+  - host: delta.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: www.delta.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: docs.delta.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: sharing.delta.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: go.delta.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        note: HTML single-page-app shell, not a document — treated as a miss.
+      - path: /.well-known/openid-configuration
+        status: 200
+        note: HTML single-page-app shell, not a document — treated as a miss.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        note: HTML single-page-app shell, not a document — treated as a miss.
+      - path: /.well-known/api-catalog
+        status: 200
+        note: HTML single-page-app shell, not a document — treated as a miss.
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        note: HTML single-page-app shell, not a document — treated as a miss.
+      - path: /.well-known/agent-card.json
+        status: 200
+        note: HTML single-page-app shell, not a document — treated as a miss.
+      - path: /.well-known/agent.json
+        status: 200
+        note: HTML single-page-app shell, not a document — treated as a miss.

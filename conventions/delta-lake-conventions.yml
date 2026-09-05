@@ -1,0 +1,132 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md (fetched 2026-09-05),
+  cross-derived from openapi/delta-lake-delta-sharing-protocol-openapi.yml
+provider: Delta Lake
+providerId: delta-lake
+api: Delta Sharing Protocol
+description: >-
+  Cross-cutting runtime semantics for the Delta Sharing REST protocol — the only network API
+  the Delta Lake project specifies. The Delta Lake storage framework and Delta Connect are
+  library/RPC surfaces and are not covered by these HTTP conventions.
+authentication:
+  style: bearer
+  header: 'Authorization: Bearer {token}'
+  scheme: openapi securitySchemes.BearerAuth (http/bearer)
+  credential_source: >-
+    The recipient's profile file (shareCredentialsVersion, endpoint, bearerToken,
+    optional expirationTime) — see the Profile File Format section of PROTOCOL.md.
+  docs: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#profile-file-format
+  see_also: authentication/delta-lake-authentication.yml
+pagination:
+  style: token
+  request_params:
+    - name: maxResults
+      in: query
+      type: int32
+      default: 500
+      note: >-
+        Must be non-negative. The server may return fewer than maxResults even when more
+        results exist; 0 returns no results but may still populate nextPageToken.
+    - name: pageToken
+      in: query
+      type: string
+      note: Set to the nextPageToken returned by the previous request.
+  response_field: nextPageToken
+  termination: >-
+    nextPageToken may be an empty string OR absent when there are no more results. The client
+    must handle both cases — this is stated explicitly in PROTOCOL.md and is a common client bug.
+  applies_to:
+    - ListShares
+    - ListSchemas
+    - ListTables
+    - ListALLTables
+  note: >-
+    QueryTable also paginates, but its next page token is carried in the EndStreamAction of the
+    ndjson response rather than in a JSON body field.
+versioning:
+  api_version: >-
+    The URL prefix is server-chosen ({prefix}); the reference server serves /delta-sharing/.
+    The protocol carries no /v1/ style version segment.
+  negotiation_header: delta-sharing-capabilities
+  negotiation_note: >-
+    Semicolon-separated key=value1,value2 pairs, case-insensitive, used on QueryTableMetadata,
+    QueryTable and GetTableChanges to negotiate protocol evolution. Defined capabilities are
+    responseFormat (parquet | delta), readerFeatures, includeEndStreamAction, and asyncQuery.
+    A server that does not recognise the header ignores it and answers in parquet format.
+  spec_version: >-
+    The published OpenAPI still declares info.version 0.2 and omits Get Query Info and Generate
+    Temporary Table Credential, both of which PROTOCOL.md documents. The prose spec is the
+    authority; the machine-readable spec lags it.
+  docs: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#delta-sharing-capabilities-header
+content_negotiation:
+  response_format:
+    header: 'delta-sharing-capabilities: responseformat=delta|parquet'
+    default: parquet
+    note: >-
+      responseformat=delta is required to read tables with minReaderVersion > 1 (deletion
+      vectors, column mapping). Supported by delta-sharing-spark 3.1 and later.
+  file_id_hash:
+    header: fileidhash
+    values: [parquet, delta]
+    echo: The server must echo the normalised lowercase value in the response header.
+    on_invalid: HTTP 400
+response_shape:
+  format: ndjson
+  note: >-
+    QueryTable, GetTableMetadata and GetTableChanges return newline-delimited JSON wrapper
+    objects (protocol, metaData, file / add / cdf / remove, and optionally endStreamAction)
+    rather than a single JSON document. List operations return ordinary JSON.
+  content_type: application/x-ndjson; charset=utf-8
+idempotency:
+  supported: true
+  coverage: partial
+  scope:
+    - QueryTable (asynchronous submission only, when the client sends asyncquery=true)
+  mechanism: >-
+    An idempotencyKey field in the QueryTable request body. The server uses it to deduplicate
+    retried submissions so that a retried submission maps to the same queryId rather than
+    starting a duplicate query.
+  header: null
+  retention: not stated
+  docs: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#asyncquery
+  note: >-
+    Replay protection exists for exactly one operation, and only in its asynchronous mode.
+    Every other operation in the protocol is a safe, side-effect-free read, so the absence of
+    a general idempotency mechanism is a property of the surface rather than a gap: there is
+    nothing to double-fire. Coverage is recorded as partial, not full, because the mechanism
+    is scoped to a single named operation.
+reversibility:
+  grade: na
+  reason: >-
+    The Delta Sharing protocol defines no write, update or delete operation. Seven of its nine
+    specified operations are GETs; the two POSTs (QueryTable, Generate Temporary Table
+    Credential) read data and mint a read-only credential respectively. There is no action an
+    agent can take through this API that would need to be taken back.
+  write_surface: false
+  operations_reviewed: 9
+  source: openapi/delta-lake-delta-sharing-protocol-openapi.yml
+dry_run_mode:
+  grade: na
+  reason: No mutating operation exists to rehearse.
+rate_limit_signaling:
+  supported: false
+  note: >-
+    Neither the OpenAPI nor PROTOCOL.md defines a 429 response, a Retry-After header, or any
+    X-RateLimit-* / RateLimit-* family header. Throttling, if any, is a property of whoever
+    operates a given sharing server.
+  see_also: rate-limits/delta-lake-rate-limits.yml
+request_tracing:
+  supported: false
+  note: No request-id or correlation-id header is specified by the protocol.
+error_envelope:
+  shape: '{"errorCode": "string", "message": "string"}'
+  rfc9457: false
+  see_also: errors/delta-lake-problem-types.yml
+naming_rules:
+  object_names: >-
+    Share, schema and table names are case-insensitive, at most 255 characters, and may not
+    contain a space, a forward slash, an ASCII control character (00-1F) or DELETE (7F).
+    Schema and table names additionally may not contain a period.
+  docs: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#names

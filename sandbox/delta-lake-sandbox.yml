@@ -1,0 +1,53 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  https://sharing.delta.io/delta-sharing/ (probed 2026-09-05) and the published profile file
+  https://github.com/delta-io/delta-sharing/blob/main/examples/open-datasets.share
+provider: Delta Lake
+providerId: delta-lake
+description: >-
+  The Delta Lake project operates an open, unauthenticated Delta Sharing demo server that
+  serves as the reference sandbox for the Delta Sharing REST protocol. It is not a "test
+  mode" of a commercial API — it is a live, read-only sharing server hosting public datasets,
+  reachable with the bearer token published in the project's own open-datasets.share profile
+  file. There is no sandbox for the Delta Lake storage framework itself, which is a library,
+  not a hosted service.
+modes:
+  - name: open demo sharing server
+    endpoint: https://sharing.delta.io/delta-sharing/
+    auth: bearer
+    live: true
+    note: >-
+      Probed 2026-09-05: GET /delta-sharing/shares returned HTTP 200 with
+      {"items":[{"name":"delta_sharing"}]} without any Authorization header.
+credentials:
+  - kind: profile-file
+    name: open-datasets.share
+    url: https://github.com/delta-io/delta-sharing/blob/main/examples/open-datasets.share
+    mirror: https://databricks-datasets-oregon.s3-us-west-2.amazonaws.com/delta-sharing/share/open-datasets.share
+    format: >-
+      JSON with shareCredentialsVersion, endpoint, bearerToken, and an optional expirationTime,
+      as defined in the Profile File Format section of PROTOCOL.md.
+    note: >-
+      The demo bearer token is published verbatim in the linked profile file. It is deliberately
+      not copied into this repository — read it from the provider's own file so the value can
+      never go stale here.
+fixtures:
+  share: delta_sharing
+  schema: default
+  tables:
+    - COVID_19_NYT
+    - boston-housing
+    - flight-asa_2008
+    - lending_club
+    - nyctaxi_2019
+    - nyctaxi_2019_part
+  note: >-
+    Table list read live from
+    GET https://sharing.delta.io/delta-sharing/shares/delta_sharing/all-tables on 2026-09-05.
+    The list is truncated to the names returned on the first page.
+limitations:
+  - The demo server is read-only; the Delta Sharing protocol defines no write operations.
+  - >-
+    No test clocks, trigger tooling, or fixture-reset endpoints exist — the shared tables are
+    static public datasets.

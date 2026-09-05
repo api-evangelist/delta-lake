@@ -1,0 +1,203 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  Registry metadata endpoints queried 2026-09-05 — pypi.org/pypi/<pkg>/json,
+  crates.io/api/v1/crates/<pkg>, repo1.maven.org/maven2/io/delta/<artifact>/maven-metadata.xml,
+  registry.npmjs.org/<pkg>, rubygems.org/api/v1/gems/<pkg>.json — cross-checked against
+  https://github.com/delta-io and https://docs.delta.io/
+provider: Delta Lake
+providerId: delta-lake
+description: >-
+  First-party Delta Lake client libraries and connectors. Delta Lake ships no single
+  "SDK"; the consumable surface is a set of engine connectors and language bindings
+  published under the io.delta Maven groupId, the delta-io PyPI/crates.io projects,
+  and the delta-sharing client libraries for the Delta Sharing REST protocol.
+  Versions and publish dates below were read from each registry's metadata endpoint
+  on 2026-09-05.
+packages:
+  - language: python
+    registry: pypi
+    name: deltalake
+    url: https://pypi.org/project/deltalake/
+    install: pip install deltalake
+    official: true
+    version: 1.6.3
+    published: '2026-08-21'
+    repository: https://github.com/delta-io/delta-rs
+    note: Python binding over the native Rust implementation (delta-rs).
+  - language: python
+    registry: pypi
+    name: delta-spark
+    url: https://pypi.org/project/delta-spark/
+    install: pip install delta-spark
+    official: true
+    version: 4.4.0
+    published: '2026-08-20'
+    repository: https://github.com/delta-io/delta
+    note: Python package for the Apache Spark connector, released in lockstep with Delta Lake 4.4.0.
+  - language: python
+    registry: pypi
+    name: delta-sharing
+    url: https://pypi.org/project/delta-sharing/
+    install: pip install delta-sharing
+    official: true
+    version: 1.4.2
+    published: '2026-08-10'
+    repository: https://github.com/delta-io/delta-sharing
+    note: Python client for the Delta Sharing REST protocol captured in openapi/.
+  - language: rust
+    registry: crates.io
+    name: deltalake
+    url: https://crates.io/crates/deltalake
+    install: cargo add deltalake
+    official: true
+    version: 0.32.4
+    published: '2026-06-07'
+    repository: https://github.com/delta-io/delta-rs
+  - language: rust
+    registry: crates.io
+    name: delta_kernel
+    url: https://crates.io/crates/delta_kernel
+    install: cargo add delta_kernel
+    official: true
+    version: 0.28.0
+    published: '2026-09-01'
+    repository: https://github.com/delta-io/delta-kernel-rs
+  - language: scala
+    registry: maven
+    name: io.delta:delta-spark_2.13
+    url: https://central.sonatype.com/artifact/io.delta/delta-spark_2.13
+    install: 'libraryDependencies += "io.delta" %% "delta-spark" % "4.4.0"'
+    official: true
+    version: 4.4.0
+    published: '2026-08-20'
+    repository: https://github.com/delta-io/delta
+  - language: java
+    registry: maven
+    name: io.delta:delta-kernel-api
+    url: https://central.sonatype.com/artifact/io.delta/delta-kernel-api
+    install: 'io.delta:delta-kernel-api:4.4.0'
+    official: true
+    version: 4.4.0
+    published: '2026-08-20'
+    repository: https://github.com/delta-io/delta
+  - language: java
+    registry: maven
+    name: io.delta:delta-storage
+    url: https://central.sonatype.com/artifact/io.delta/delta-storage
+    install: 'io.delta:delta-storage:4.4.0'
+    official: true
+    version: 4.4.0
+    published: '2026-08-20'
+    repository: https://github.com/delta-io/delta
+  - language: scala
+    registry: maven
+    name: io.delta:delta-connect-client_2.13
+    url: https://central.sonatype.com/artifact/io.delta/delta-connect-client_2.13
+    install: 'io.delta:delta-connect-client_2.13:4.4.0'
+    official: true
+    version: 4.4.0
+    published: '2026-08-20'
+    repository: https://github.com/delta-io/delta
+    note: Client for Delta Connect, the Spark Connect protobuf surface captured in grpc/.
+  - language: scala
+    registry: maven
+    name: io.delta:delta-sharing-client_2.13
+    url: https://central.sonatype.com/artifact/io.delta/delta-sharing-client_2.13
+    install: 'io.delta:delta-sharing-client_2.13:1.4.1'
+    official: true
+    version: 1.4.1
+    published: '2026-07-22'
+    repository: https://github.com/delta-io/delta-sharing
+  - language: scala
+    registry: maven
+    name: io.delta:delta-sharing-server_2.12
+    url: https://central.sonatype.com/artifact/io.delta/delta-sharing-server_2.12
+    install: 'io.delta:delta-sharing-server_2.12:1.3.10'
+    official: true
+    version: 1.3.10
+    published: '2026-04-04'
+    repository: https://github.com/delta-io/delta-sharing
+    note: >-
+      Reference implementation of the Delta Sharing server described by
+      openapi/delta-lake-delta-sharing-protocol-openapi.yml. No Scala 2.13 build of the
+      server artifact is published; the 2.12 build is the current one.
+  - language: java
+    registry: maven
+    name: io.delta:delta-flink
+    url: https://central.sonatype.com/artifact/io.delta/delta-flink
+    install: 'io.delta:delta-flink:4.3.1'
+    official: true
+    version: 4.3.1
+    published: '2026-08-12'
+    repository: https://github.com/delta-io/delta
+  - language: scala
+    registry: maven
+    name: io.delta:delta-standalone_2.13
+    url: https://central.sonatype.com/artifact/io.delta/delta-standalone_2.13
+    install: 'io.delta:delta-standalone_2.13:3.3.3'
+    official: true
+    version: 3.3.3
+    published: '2026-08-12'
+    repository: https://github.com/delta-io/delta
+  - language: scala
+    registry: maven
+    name: io.delta:delta-iceberg_2.13
+    url: https://central.sonatype.com/artifact/io.delta/delta-iceberg_2.13
+    install: 'io.delta:delta-iceberg_2.13:4.4.0'
+    official: true
+    version: 4.4.0
+    published: '2026-08-20'
+    repository: https://github.com/delta-io/delta
+    note: UniForm Iceberg interoperability module.
+  - language: ruby
+    registry: rubygems
+    name: deltalake-rb
+    url: https://rubygems.org/gems/deltalake-rb
+    install: gem install deltalake-rb
+    official: false
+    version: 0.3.2
+    published: '2026-06-08'
+    repository: https://github.com/ankane/delta-ruby
+    note: >-
+      Community Ruby binding over delta-rs (maintained by Andrew Kane), not published by
+      the delta-io organization. Listed because the delta-io GitHub description advertises
+      a Ruby API and this is the maintained implementation.
+  - language: ruby
+    registry: rubygems
+    name: deltalake
+    url: https://rubygems.org/gems/deltalake
+    install: gem install deltalake
+    official: false
+    version: 0.1.1
+    published: '2020-10-29'
+    repository: https://github.com/delta-io/delta.rs
+    note: >-
+      Names a delta-io repository as its source but has not published since 2020-10-29 and
+      is not referenced from current Delta Lake documentation. Recorded as an abandonment
+      signal, not as a supported client.
+  - language: javascript
+    registry: npm
+    name: delta-sharing
+    url: https://www.npmjs.com/package/delta-sharing
+    install: npm install delta-sharing
+    official: false
+    version: 0.0.2
+    published: '2023-06-19'
+    repository: https://github.com/goodwillpunning/nodejs-sharing-client
+    note: >-
+      Community Node.js Delta Sharing client (individual maintainer, not delta-io).
+      No release in three years. There is no first-party JavaScript client.
+gaps:
+  - language: javascript
+    note: >-
+      No first-party JavaScript/TypeScript client for either Delta Lake or the Delta
+      Sharing REST protocol is published by delta-io on npm.
+  - language: go
+    note: >-
+      No Go module is published under github.com/delta-io; proxy.golang.org returned 404
+      for github.com/delta-io/delta-go on 2026-09-05.
+  - language: dotnet
+    note: >-
+      No first-party NuGet package. The NuGet packages matching "deltalake"
+      (DeltaLake.Net, FlowtideDotNet.Connector.DeltaLake) are third-party.

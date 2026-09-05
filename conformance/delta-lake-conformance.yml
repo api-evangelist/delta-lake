@@ -1,0 +1,142 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://github.com/delta-io/delta/blob/master/PROTOCOL.md,
+  https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md,
+  openapi/delta-lake-delta-sharing-protocol-openapi.yml,
+  https://github.com/delta-io/delta/releases (all fetched 2026-09-05)
+provider: Delta Lake
+providerId: delta-lake
+description: >-
+  Cross-cutting and domain-standard conformance for the Delta Lake project. Delta Lake is
+  itself the publisher of two specifications (the Delta transaction log protocol and the
+  Delta Sharing REST protocol), so most entries below record which OTHER standards its
+  contracts declare against, not third-party certification.
+conformance:
+  - id: openapi-3.0
+    name: OpenAPI Specification 3.0.2
+    conforms: true
+    evidence: >-
+      openapi/delta-lake-delta-sharing-protocol-openapi.yml declares openapi 3.0.2
+    note: >-
+      The Delta Sharing protocol is published as a first-party OpenAPI document in the
+      delta-io/delta-sharing repository.
+  - id: protobuf3
+    name: Protocol Buffers
+    conforms: true
+    evidence: >-
+      grpc/delta-lake-delta-connect-base.proto (proto3),
+      grpc/delta-lake-delta-sharing-protocol.proto (proto2)
+    note: >-
+      Delta Connect defines its Spark Connect plugin surface in proto3; the Delta Sharing
+      reference server defines its REST response objects in proto2.
+  - id: rfc6750
+    name: OAuth 2.0 Bearer Token Usage
+    conforms: true
+    evidence: >-
+      https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#rest-apis — "All of the
+      REST APIs use bearer tokens for authorization" linking to tools.ietf.org/html/rfc6750
+    note: >-
+      Bearer-token transport only. Delta Sharing defines no OAuth authorization server, no
+      token endpoint and no scopes; the token arrives out of band in the recipient's profile file.
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      errors/delta-lake-problem-types.yml — the error envelope is
+      {"errorCode","message"} served as application/json, not application/problem+json.
+  - id: pagination
+    name: Token-based pagination
+    conforms: true
+    evidence: >-
+      maxResults / pageToken query parameters and the nextPageToken response field on
+      ListShares, ListSchemas, ListTables and ListALLTables
+      (openapi/delta-lake-delta-sharing-protocol-openapi.yml).
+  - id: idempotency
+    name: Request idempotency
+    conforms: partial
+    evidence: >-
+      https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#asyncquery — an
+      idempotencyKey in the QueryTable request body deduplicates retried async submissions.
+    note: Scoped to one operation in one mode. See conventions/delta-lake-conventions.yml.
+  - id: rfc3986
+    name: RFC 3986 URI / percent-encoding
+    conforms: true
+    evidence: >-
+      https://github.com/delta-io/delta/blob/master/PROTOCOL.md — the Delta log requires
+      RFC 3986 percent-encoding rules for file paths, and RFC 2396 URI syntax for add/remove
+      action paths.
+  - id: rfc8259
+    name: RFC 8259 JSON
+    conforms: true
+    evidence: >-
+      https://github.com/delta-io/delta/blob/master/PROTOCOL.md — JSON canonicalization rules
+      for the version checksum file cite RFC 8259.
+  - id: iso8601
+    name: ISO 8601 timestamps
+    conforms: true
+    evidence: >-
+      https://github.com/delta-io/delta/blob/master/PROTOCOL.md — "It is highly recommended
+      that modern writers adjust the timestamp to UTC and store the timestamp in ISO8601
+      format"; the Delta Sharing profile file expirationTime is ISO 8601.
+domain_standards:
+  - id: apache-parquet
+    name: Apache Parquet
+    conforms: true
+    evidence: >-
+      https://github.com/delta-io/delta/blob/master/PROTOCOL.md — Delta tables store data as
+      Parquet files and the Variant encoding cites
+      github.com/apache/parquet-format/blob/master/VariantEncoding.md.
+    market_note: >-
+      Parquet is the base object format of the open lakehouse market. A consumer that already
+      reads Parquet reads Delta data files with no bespoke reader.
+  - id: apache-iceberg-format
+    name: Apache Iceberg table format (via UniForm / IcebergCompat)
+    conforms: true
+    evidence: >-
+      https://github.com/delta-io/delta/blob/master/PROTOCOL.md#writer-requirements-for-icebergcompatv1
+      and #iceberg-compatibility-v2 — the IcebergCompatV1 and IcebergCompatV2 writer table
+      features, enabled by delta.enableIcebergCompatV1 / delta.enableIcebergCompatV2.
+    market_note: >-
+      UniForm lets a Delta table be read by an Iceberg client without copying data — the
+      interoperability guarantee that decides whether a buyer needs a bilateral connector.
+  - id: apache-iceberg-rest-catalog
+    name: Apache Iceberg REST Catalog API
+    conforms: partial
+    evidence: >-
+      https://github.com/delta-io/delta/releases/tag/v4.1.0 — "Server-Side Planning (preview):
+      Delegate scan planning to catalog servers following the Apache Iceberg REST Catalog API".
+    market_note: >-
+      Catalog-managed Delta tables delegate scan planning over the Iceberg REST Catalog
+      protocol, which is what makes them interoperable with Unity Catalog and other catalog
+      services. Declared as preview in the 4.1.0 release notes, not yet normative in PROTOCOL.md.
+  - id: unity-catalog-oss-temporary-credentials
+    name: Unity Catalog OSS TemporaryCredentials API
+    conforms: true
+    evidence: >-
+      https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md#generate-temporary-table-credential
+      — "The response follows the format of GenerateTemporaryTableCredential in UC OSS", and the
+      awsTempCredentials / azureUserDelegationSas / gcpOauthToken models follow the Unity Catalog
+      OSS models and APIs.
+    market_note: >-
+      Directory-based access mode reuses an existing open catalog contract rather than inventing
+      a credential shape, so a client that already speaks UC OSS credentials needs no new code.
+  - id: delta-sharing-protocol
+    name: Delta Sharing Protocol
+    conforms: true
+    role: publisher
+    evidence: https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md
+    market_note: >-
+      Delta Lake is the standards body here, not an implementer — it defines the open protocol
+      for cross-organization data sharing that other vendors implement.
+  - id: delta-transaction-log-protocol
+    name: Delta Transaction Log Protocol
+    conforms: true
+    role: publisher
+    evidence: https://github.com/delta-io/delta/blob/master/PROTOCOL.md
+certifications:
+  published: false
+  note: >-
+    No SOC 2, ISO 27001, PCI, HIPAA or FedRAMP attestation exists or would apply. Delta Lake is
+    an Apache-2.0 open source project under LF Projects, LLC that operates no customer-facing
+    service. No Compliance or TrustCenter pointer is emitted.
