@@ -115,6 +115,8 @@ apis:
   humanURL: https://docs.delta.io/
   baseURL: https://sharing.delta.io/delta-sharing/
   tags:
+  - Schema
+  tags_raw:
   - schemas
   properties:
   - type: OpenAPI
@@ -137,6 +139,8 @@ apis:
   humanURL: https://docs.delta.io/
   baseURL: https://sharing.delta.io/delta-sharing/
   tags:
+  - Share
+  tags_raw:
   - shares
   properties:
   - type: OpenAPI
@@ -159,6 +163,8 @@ apis:
   humanURL: https://docs.delta.io/
   baseURL: https://sharing.delta.io/delta-sharing/
   tags:
+  - Tables
+  tags_raw:
   - tables
   properties:
   - type: OpenAPI
