@@ -1,0 +1,31 @@
+{
+  "provider": "delta-lake",
+  "sources": [
+    "_original/delta-lake-delta-sharing-protocol-openapi.yml"
+  ],
+  "outputs": [
+    "delta-lake-schemas-api-openapi.yml",
+    "delta-lake-shares-api-openapi.yml",
+    "delta-lake-tables-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "delta-lake-delta-sharing-protocol-openapi.yml: dangling $ref: #/components/responses/400",
+    "delta-lake-delta-sharing-protocol-openapi.yml: dangling $ref: #/components/responses/401",
+    "delta-lake-delta-sharing-protocol-openapi.yml: dangling $ref: #/components/responses/403",
+    "delta-lake-delta-sharing-protocol-openapi.yml: dangling $ref: #/components/responses/404",
+    "delta-lake-delta-sharing-protocol-openapi.yml: dangling $ref: #/components/responses/500"
+  ],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "delta-lake-delta-sharing-protocol-openapi.yml: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
+    "delta-lake-delta-sharing-protocol-openapi.yml: multi-axis tagging (4 tags, 3 first tags, 2.00x duplication over 9 operations) \u2014 split on first tag, 9 operations narrowed",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "delta-lake-schemas-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "delta-lake-shares-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "delta-lake-tables-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

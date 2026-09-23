@@ -1,0 +1,109 @@
+openapi: 3.2.0
+info:
+  description: The Delta Sharing protocol is still very early in its development.
+  version: '0.2'
+  title: Delta Sharing Protocol Schemas API
+  contact:
+    email: ''
+  license:
+    name: AGPL v3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+servers:
+- url: http://localhost:8000/api/v1
+  description: Local dev server (APIv1)
+- url: https://sharing.delta.io/delta-sharing/
+  description: Demo Delta Sharing server
+tags:
+- name: Schemas
+  description: Schema discovery APIs
+paths:
+  /shares/{share}/schemas/{schema}/tables:
+    get:
+      operationId: ListTables
+      summary: List the tables in a given share's schema
+      tags:
+      - Schemas
+      parameters:
+      - in: path
+        name: share
+        required: true
+        description: Named share for finding the named schema
+        schema:
+          type: string
+      - in: path
+        name: schema
+        required: true
+        description: Named schema for listing tables
+        schema:
+          type: string
+      - in: query
+        name: maxResults
+        required: false
+        description: 'The maximum number of results to be returned in a single page. If
+
+          the number of potential results exceeds the number of maximum
+
+          results, the response will contain a `nextpageToken` which can be
+
+          used in subsequent requests.
+
+          '
+        example: '30'
+        schema:
+          type: number
+          format: int32
+          default: 500
+      - in: query
+        name: pageToken
+        required: false
+        description: Optionally provided page token for requesting a subsequent page of results
+        schema:
+          type: string
+      responses:
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '200':
+          description: 'The user could successfully list the tables for the given schema in the given share
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTablesResponse'
+components:
+  schemas:
+    Table:
+      type: object
+      properties:
+        name:
+          type: string
+          example: vaccine_ingredients
+        share:
+          type: string
+          example: vaccine_share
+        schema:
+          type: string
+          example: acme_vaccine_data
+    ListTablesResponse:
+      type: object
+      required:
+      - nextPageToken
+      properties:
+        nextPageToken:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

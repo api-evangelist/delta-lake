@@ -1,0 +1,282 @@
+openapi: 3.2.0
+info:
+  description: The Delta Sharing protocol is still very early in its development.
+  version: '0.2'
+  title: Delta Sharing Protocol Shares API
+  contact:
+    email: ''
+  license:
+    name: AGPL v3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+servers:
+- url: http://localhost:8000/api/v1
+  description: Local dev server (APIv1)
+- url: https://sharing.delta.io/delta-sharing/
+  description: Demo Delta Sharing server
+tags:
+- name: Shares
+  description: Share discovery APIs
+paths:
+  /shares:
+    get:
+      operationId: ListShares
+      summary: List the shares accessible to the recipient
+      description: 'Without any query parameters the request will return the first page
+
+        of "shares" available to the authenticated recipient'
+      tags:
+      - Shares
+      parameters:
+      - in: query
+        name: maxResults
+        required: false
+        description: 'The maximum number of results to be returned in a single page. If
+
+          the number of potential results exceeds the number of maximum
+
+          results, the response will contain a `nextpageToken` which can be
+
+          used in subsequent requests.
+
+          '
+        example: '30'
+        schema:
+          type: number
+          format: int32
+          default: 500
+      - in: query
+        name: pageToken
+        required: false
+        description: Optionally provided page token for requesting a subsequent page of results
+        schema:
+          type: string
+      responses:
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '200':
+          description: 'The user could successfully list the shares
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListShareResponse'
+  /shares/{share}:
+    get:
+      operationId: GetShare
+      summary: get the metadata of a share
+      tags:
+      - Shares
+      parameters:
+      - in: path
+        name: share
+        required: true
+        description: Named share
+        schema:
+          type: string
+      responses:
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '200':
+          description: The share's metadata was successfully returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Share'
+  /shares/{share}/schemas:
+    get:
+      operationId: ListSchemas
+      summary: List the schemas in a share
+      tags:
+      - Shares
+      parameters:
+      - in: path
+        name: share
+        required: true
+        description: Named share to list the schemas
+        schema:
+          type: string
+      - in: query
+        name: maxResults
+        required: false
+        description: 'The maximum number of results to be returned in a single page. If
+
+          the number of potential results exceeds the number of maximum
+
+          results, the response will contain a `nextpageToken` which can be
+
+          used in subsequent requests.
+
+          '
+        example: '30'
+        schema:
+          type: number
+          format: int32
+          default: 500
+      - in: query
+        name: pageToken
+        required: false
+        description: Optionally provided page token for requesting a subsequent page of results
+        schema:
+          type: string
+      responses:
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '200':
+          description: 'The user could successfully list the schemas in the given share
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSchemasResponse'
+  /shares/{share}/all-tables:
+    get:
+      operationId: ListALLTables
+      summary: List the tables under all schemas in a share
+      tags:
+      - Shares
+      parameters:
+      - in: path
+        name: share
+        required: true
+        description: Named share for finding the named schema
+        schema:
+          type: string
+      - in: query
+        name: maxResults
+        required: false
+        description: 'The maximum number of results to be returned in a single page. If
+
+          the number of potential results exceeds the number of maximum
+
+          results, the response will contain a `nextpageToken` which can be
+
+          used in subsequent requests.
+
+          '
+        example: '30'
+        schema:
+          type: number
+          format: int32
+          default: 500
+      - in: query
+        name: pageToken
+        required: false
+        description: Optionally provided page token for requesting a subsequent page of results
+        schema:
+          type: string
+      responses:
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+        '200':
+          description: 'The user could successfully list the tables under all schemas in a share
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTablesResponse'
+components:
+  schemas:
+    ListShareResponse:
+      type: object
+      required:
+      - nextPageToken
+      properties:
+        nextPageToken:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Share'
+    Share:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: vaccine_share
+        id:
+          type: string
+          example: edacc4a7-6600-4fbb-85f3-a62a5ce6761f
+    ListTablesResponse:
+      type: object
+      required:
+      - nextPageToken
+      properties:
+        nextPageToken:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+    Table:
+      type: object
+      properties:
+        name:
+          type: string
+          example: vaccine_ingredients
+        share:
+          type: string
+          example: vaccine_share
+        schema:
+          type: string
+          example: acme_vaccine_data
+    ListSchemasResponse:
+      type: object
+      required:
+      - nextPageToken
+      properties:
+        nextPageToken:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schema'
+    Schema:
+      type: object
+      properties:
+        name:
+          type: string
+          example: acme_vaccine_data
+        share:
+          type: string
+          example: vaccine_share
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
