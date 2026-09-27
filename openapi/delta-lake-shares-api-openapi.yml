@@ -222,28 +222,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Share'
-    Share:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: vaccine_share
-        id:
-          type: string
-          example: edacc4a7-6600-4fbb-85f3-a62a5ce6761f
-    ListTablesResponse:
-      type: object
-      required:
-      - nextPageToken
-      properties:
-        nextPageToken:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Table'
     Table:
       type: object
       properties:
@@ -256,6 +234,17 @@ components:
         schema:
           type: string
           example: acme_vaccine_data
+    Share:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: vaccine_share
+        id:
+          type: string
+          example: edacc4a7-6600-4fbb-85f3-a62a5ce6761f
     ListSchemasResponse:
       type: object
       required:
@@ -276,6 +265,17 @@ components:
         share:
           type: string
           example: vaccine_share
+    ListTablesResponse:
+      type: object
+      required:
+      - nextPageToken
+      properties:
+        nextPageToken:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
   securitySchemes:
     BearerAuth:
       type: http
