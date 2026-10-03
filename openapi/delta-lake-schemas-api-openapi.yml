@@ -80,17 +80,6 @@ paths:
                 $ref: '#/components/schemas/ListTablesResponse'
 components:
   schemas:
-    ListTablesResponse:
-      type: object
-      required:
-      - nextPageToken
-      properties:
-        nextPageToken:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Table'
     Table:
       type: object
       properties:
@@ -103,6 +92,17 @@ components:
         schema:
           type: string
           example: acme_vaccine_data
+    ListTablesResponse:
+      type: object
+      required:
+      - nextPageToken
+      properties:
+        nextPageToken:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
   securitySchemes:
     BearerAuth:
       type: http

@@ -211,6 +211,26 @@ paths:
                 $ref: '#/components/schemas/ListTablesResponse'
 components:
   schemas:
+    Schema:
+      type: object
+      properties:
+        name:
+          type: string
+          example: acme_vaccine_data
+        share:
+          type: string
+          example: vaccine_share
+    ListSchemasResponse:
+      type: object
+      required:
+      - nextPageToken
+      properties:
+        nextPageToken:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schema'
     ListShareResponse:
       type: object
       required:
@@ -234,37 +254,6 @@ components:
         schema:
           type: string
           example: acme_vaccine_data
-    Share:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: vaccine_share
-        id:
-          type: string
-          example: edacc4a7-6600-4fbb-85f3-a62a5ce6761f
-    ListSchemasResponse:
-      type: object
-      required:
-      - nextPageToken
-      properties:
-        nextPageToken:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Schema'
-    Schema:
-      type: object
-      properties:
-        name:
-          type: string
-          example: acme_vaccine_data
-        share:
-          type: string
-          example: vaccine_share
     ListTablesResponse:
       type: object
       required:
@@ -276,6 +265,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Table'
+    Share:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: vaccine_share
+        id:
+          type: string
+          example: edacc4a7-6600-4fbb-85f3-a62a5ce6761f
   securitySchemes:
     BearerAuth:
       type: http
