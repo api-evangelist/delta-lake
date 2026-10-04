@@ -306,6 +306,17 @@ paths:
                 $ref: '#/components/schemas/ChangeDataFeedResponse'
 components:
   schemas:
+    ChangeDataFeedResponse:
+      type: string
+      example: '{"protocol": {"minReaderVersion": 1}}
+
+        {"metaData": {"id": "f8d5c169-3d01-4ca3-ad9e-7dc3355aedb2","format": {"provider": "parquet"},"schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"eventTime\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}}]}","partitionColumns": ["date"],"configuration": {"enableChangeDataFeed": "true"}}}{"add": {"url": "https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table_cdf/date%3D2021-04-28/part-00000-8b0086f2-7b27-4935-ac5a-8ed6215a6640.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=97b6762cfd8e4d7e94b9d707eff3faf266974f6e7030095c1d4a66350cfd892e","id": "8b0086f2-7b27-4935-ac5a-8ed6215a6640","partitionValues": {"date": "2021-04-28"},"size":573,"stats": "{\"numRecords\":1,\"minValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"maxValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"nullCount\":{\"eventTime\":0}}","timestamp": 1652140000000,"version": 0}}
+
+        {"cdf": {"url": "https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table_cdf/_change_data/date%3D2021-04-28/part-00000-591723a8-6a27-4240-a90e-57426f4736d2.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=899&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=0f7acecba5df7652457164533a58004936586186c56425d9d53c52db574f6b62","id": "591723a8-6a27-4240-a90e-57426f4736d2","partitionValues": {"date": "2021-04-28"},"size": 689,"timestamp": 1652141000000,"version": 1}}
+
+        {"remove": {"url": "https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table_cdf/date%3D2021-04-28/part-00000-8b0086f2-7b27-4935-ac5a-8ed6215a6640.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=97b6762cfd8e4d7e94b9d707eff3faf266974f6e7030095c1d4a66350cfd892e","id": "8b0086f2-7b27-4935-ac5a-8ed6215a6640","partitionValues": {"date": "2021-04-28"},"size": 573,"timestamp": 1652142000000,"version": 2}}
+
+        '
     Ops:
       type: string
       enum:
@@ -321,35 +332,6 @@ components:
       - or
       - not
       description: "Op \t                Op Type \tDescription\ncolumn \t            Leaf \tRepresents a column. A column op has two fields: name and valueType. The column's value will be cast to the specified valueType during comparisons.\nliteral \t        Leaf    Represents a literal or fixed value. A literal op has two fields: value and valueType. The literal's value will be cast to the specified valueType during comparisons.\nisNull \t            Unary \tRepresents a null check on a column op. This op should have only one child, the column op.\nequal \t            Binary \tRepresents an equality (\"=\") check. This op should have two children, and both should be leaf ops.\nlessThan \t        Binary \tRepresents a less than (\"<\") check. This op should have two children, and both should be leaf ops.\nlessThanOrEqual\t    Binary \tRepresents a less than or equal (\"<=\") check. This op should have two children, and both should be leaf ops.\ngreaterThan \t    Binary \tRepresents a greater than (\">\") check. This op should have two children, and both should be leaf ops.\ngreaterThanOrEqual \tBinary \tRepresents a greater than (\">=\") check. This op should have two children, and both should be leaf ops.\nand \t            Nary \tRepresents a logical and operation amongst its children. This op should have at least two children.\nor \t                Nary \tRepresents a logical or operation amongst its children. This op should have at least two children.\nnot \t            Unary \tRepresents a logical not check. This op should have once child.\nThe supported value types:\n  ValueType \tDescription\n  \"bool\" \tRepresents an Boolean type.\n  \"int\" \tRepresents an Integer type.\n  \"long\" \tRepresents a Long type.\n  \"string\" \tRepresents a String type.\n  \"date\" \tRepresents a Date type in \"yyyy-mm-dd\" format.\n"
-    ChangeDataFeedResponse:
-      type: string
-      example: '{"protocol": {"minReaderVersion": 1}}
-
-        {"metaData": {"id": "f8d5c169-3d01-4ca3-ad9e-7dc3355aedb2","format": {"provider": "parquet"},"schemaString": "{\"type\":\"struct\",\"fields\":[{\"name\":\"eventTime\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}}]}","partitionColumns": ["date"],"configuration": {"enableChangeDataFeed": "true"}}}{"add": {"url": "https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table_cdf/date%3D2021-04-28/part-00000-8b0086f2-7b27-4935-ac5a-8ed6215a6640.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=97b6762cfd8e4d7e94b9d707eff3faf266974f6e7030095c1d4a66350cfd892e","id": "8b0086f2-7b27-4935-ac5a-8ed6215a6640","partitionValues": {"date": "2021-04-28"},"size":573,"stats": "{\"numRecords\":1,\"minValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"maxValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"nullCount\":{\"eventTime\":0}}","timestamp": 1652140000000,"version": 0}}
-
-        {"cdf": {"url": "https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table_cdf/_change_data/date%3D2021-04-28/part-00000-591723a8-6a27-4240-a90e-57426f4736d2.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=899&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=0f7acecba5df7652457164533a58004936586186c56425d9d53c52db574f6b62","id": "591723a8-6a27-4240-a90e-57426f4736d2","partitionValues": {"date": "2021-04-28"},"size": 689,"timestamp": 1652141000000,"version": 1}}
-
-        {"remove": {"url": "https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table_cdf/date%3D2021-04-28/part-00000-8b0086f2-7b27-4935-ac5a-8ed6215a6640.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=97b6762cfd8e4d7e94b9d707eff3faf266974f6e7030095c1d4a66350cfd892e","id": "8b0086f2-7b27-4935-ac5a-8ed6215a6640","partitionValues": {"date": "2021-04-28"},"size": 573,"timestamp": 1652142000000,"version": 2}}
-
-        '
-    TableMetadataResponse:
-      type: string
-      example: '{"protocol":{"minReaderVersion":1}}
-
-        {"metaData":{"id":"f8d5c169-3d01-4ca3-ad9e-7dc3355aedb2","format":{"provider":"parquet"},"schemaString":"{\"type\":\"struct\",\"fields\":[{\"name\":\"eventTime\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}}]}","partitionColumns":["date"]}}
-
-        '
-    TableQueryResponse:
-      type: string
-      example: '{"protocol":{"minReaderVersion":1}}
-
-        {"metaData":{"id":"f8d5c169-3d01-4ca3-ad9e-7dc3355aedb2","format":{"provider":"parquet"},"schemaString":"{\"type\":\"struct\",\"fields\":[{\"name\":\"eventTime\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}}]}","partitionColumns":["date"]}}
-
-        {"file":{"url":"https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table2/date%3D2021-04-28/part-00000-8b0086f2-7b27-4935-ac5a-8ed6215a6640.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=97b6762cfd8e4d7e94b9d707eff3faf266974f6e7030095c1d4a66350cfd892e","id":"8b0086f2-7b27-4935-ac5a-8ed6215a6640","partitionValues":{"date":"2021-04-28"},"size":573,"stats":"{\"numRecords\":1,\"minValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"maxValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"nullCount\":{\"eventTime\":0}}"}}
-
-        {"file":{"url":"https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table2/date%3D2021-04-28/part-00000-591723a8-6a27-4240-a90e-57426f4736d2.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=899&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=0f7acecba5df7652457164533a58004936586186c56425d9d53c52db574f6b62","id":"591723a8-6a27-4240-a90e-57426f4736d2","partitionValues":{"date":"2021-04-28"},"size":573,"stats":"{\"numRecords\":1,\"minValues\":{\"eventTime\":\"2021-04-28T23:33:48.719Z\"},\"maxValues\":{\"eventTime\":\"2021-04-28T23:33:48.719Z\"},\"nullCount\":{\"eventTime\":0}}"}}
-
-        '
     QueryRequest:
       type: object
       properties:
@@ -480,6 +462,24 @@ components:
             responseformat=delta; ignored for responseformat=parquet responses.
 
             '
+    TableQueryResponse:
+      type: string
+      example: '{"protocol":{"minReaderVersion":1}}
+
+        {"metaData":{"id":"f8d5c169-3d01-4ca3-ad9e-7dc3355aedb2","format":{"provider":"parquet"},"schemaString":"{\"type\":\"struct\",\"fields\":[{\"name\":\"eventTime\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}}]}","partitionColumns":["date"]}}
+
+        {"file":{"url":"https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table2/date%3D2021-04-28/part-00000-8b0086f2-7b27-4935-ac5a-8ed6215a6640.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=97b6762cfd8e4d7e94b9d707eff3faf266974f6e7030095c1d4a66350cfd892e","id":"8b0086f2-7b27-4935-ac5a-8ed6215a6640","partitionValues":{"date":"2021-04-28"},"size":573,"stats":"{\"numRecords\":1,\"minValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"maxValues\":{\"eventTime\":\"2021-04-28T23:33:57.955Z\"},\"nullCount\":{\"eventTime\":0}}"}}
+
+        {"file":{"url":"https://<s3-bucket-name>.s3.us-west-2.amazonaws.com/delta-exchange-test/table2/date%3D2021-04-28/part-00000-591723a8-6a27-4240-a90e-57426f4736d2.c000.snappy.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210501T010516Z&X-Amz-SignedHeaders=host&X-Amz-Expires=899&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20210501%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=0f7acecba5df7652457164533a58004936586186c56425d9d53c52db574f6b62","id":"591723a8-6a27-4240-a90e-57426f4736d2","partitionValues":{"date":"2021-04-28"},"size":573,"stats":"{\"numRecords\":1,\"minValues\":{\"eventTime\":\"2021-04-28T23:33:48.719Z\"},\"maxValues\":{\"eventTime\":\"2021-04-28T23:33:48.719Z\"},\"nullCount\":{\"eventTime\":0}}"}}
+
+        '
+    TableMetadataResponse:
+      type: string
+      example: '{"protocol":{"minReaderVersion":1}}
+
+        {"metaData":{"id":"f8d5c169-3d01-4ca3-ad9e-7dc3355aedb2","format":{"provider":"parquet"},"schemaString":"{\"type\":\"struct\",\"fields\":[{\"name\":\"eventTime\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"date\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}}]}","partitionColumns":["date"]}}
+
+        '
   securitySchemes:
     BearerAuth:
       type: http

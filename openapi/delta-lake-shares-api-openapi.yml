@@ -211,15 +211,6 @@ paths:
                 $ref: '#/components/schemas/ListTablesResponse'
 components:
   schemas:
-    Schema:
-      type: object
-      properties:
-        name:
-          type: string
-          example: acme_vaccine_data
-        share:
-          type: string
-          example: vaccine_share
     ListSchemasResponse:
       type: object
       required:
@@ -242,18 +233,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Share'
-    Table:
+    Schema:
       type: object
       properties:
         name:
           type: string
-          example: vaccine_ingredients
+          example: acme_vaccine_data
         share:
           type: string
           example: vaccine_share
-        schema:
-          type: string
-          example: acme_vaccine_data
     ListTablesResponse:
       type: object
       required:
@@ -276,6 +264,18 @@ components:
         id:
           type: string
           example: edacc4a7-6600-4fbb-85f3-a62a5ce6761f
+    Table:
+      type: object
+      properties:
+        name:
+          type: string
+          example: vaccine_ingredients
+        share:
+          type: string
+          example: vaccine_share
+        schema:
+          type: string
+          example: acme_vaccine_data
   securitySchemes:
     BearerAuth:
       type: http
