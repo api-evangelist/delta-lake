@@ -1,4 +1,4 @@
-# Delta Lake (delta-lake)
+# Delta Lake
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,71 +64,133 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Delta Lake is a graduated project of the Linux Foundation AI & Data Foundation providing an open source storage framework for building Lakehouse architectures. Originally contributed by Databricks, it adds reliability, quality, and performance to data lakes with ACID transactions, schema enforcement, time travel, and Iceberg/Hudi interoperability via UniForm.
+Delta Lake is a graduated project of the Linux Foundation AI & Data Foundation providing an open source storage framework for building Lakehouse architectures. Originally contributed by Databricks, it adds reliability, quality, and performance to data lakes with ACID transactions, schema enforcement, time travel, and Iceberg/Hudi interoperability via UniForm. Delta Lake projects also include Delta Sharing (an open protocol for secure data sharing) and catalog-managed tables built on the Iceberg REST Catalog protocol.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/delta-lake/refs/heads/main/apis.yml)
+**Areas:** Data · Data Lake · Lakehouse · Linux Foundation · Open Source · Storage · Streaming
 
-## Scope
+## Delta Lake on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
-- **x-type:** opensource
+Everything profiled for Delta Lake is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/delta-lake/](https://apis.io/providers/delta-lake/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Data, Data Lake, Lakehouse, Linux Foundation, Open Source, Storage, Streaming
+- [Delta Lake Storage Framework](https://apis.io/apis/delta-lake/delta-lake-storage/) — The Delta Lake storage framework defines the on-disk transaction log and protocol that adds ACID transactions, schema enforcement, and time travel to…
+- [Delta Catalog-Managed Tables](https://apis.io/apis/delta-lake/delta-catalog/) — Catalog-managed Delta tables delegate table scan planning to an external catalog using the Iceberg REST Catalog protocol, enabling interoperability with…
+- [Delta Lake Schemas API](https://apis.io/apis/delta-lake/delta-lake-schemas-api/) — Schema discovery APIs
+- [Delta Lake Shares API](https://apis.io/apis/delta-lake/delta-lake-shares-api/) — Share discovery APIs
+- [Delta Lake Tables API](https://apis.io/apis/delta-lake/delta-lake-tables-api/) — Table query and inspection APIs
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Delta Lake Storage Framework
+Model Context Protocol servers that expose the API to agents.
 
-The Delta Lake storage framework defines the on-disk transaction log and protocol that adds ACID transactions, schema enforcement, and time travel to Parquet-based data lakes. Delta Lake exposes Spark, Rust, and Python APIs (delta-spark, delta-rs, deltalake) rather than a network API.
+- [delta-lake-mcp.yml](https://apis.io/servers/delta-lake/delta-lake-mcp-yml/)
 
-- **Human URL:** https://docs.delta.io/
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://docs.delta.io/)
-- [Protocol](https://github.com/delta-io/delta/blob/master/PROTOCOL.md)
-- [SourceCode](https://github.com/delta-io/delta)
+- [Delta Lake Vocabulary](https://apis.io/vocabularies/delta-lake/delta-lake-vocabulary/)
 
-### Delta Sharing Protocol
+#### Overlays (1)
 
-Delta Sharing is an open protocol for secure data sharing across organizations, defined as a REST API specification. Sharing servers expose endpoints for listing shares, schemas, and tables, and for retrieving signed URLs to underlying data files.
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- **Human URL:** https://delta.io/sharing/
+- [Delta Lake Delta Sharing Protocol Overlay](https://apis.io/overlays/delta-lake/delta-lake-delta-sharing-protocol-overlay/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://github.com/delta-io/delta-sharing)
-- [Protocol](https://github.com/delta-io/delta-sharing/blob/main/PROTOCOL.md)
-- [SourceCode](https://github.com/delta-io/delta-sharing)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Delta Catalog-Managed Tables
+- [Delta Lake Authentication](https://apis.io/security/delta-lake/delta-lake-authentication/)
+- [Delta Lake Domain Security](https://apis.io/security/delta-lake/delta-lake-domain-security/)
 
-Catalog-managed Delta tables delegate table scan planning to an external catalog using the Iceberg REST Catalog protocol, enabling interoperability with Unity Catalog and other catalog services.
+#### Plans and pricing (1)
 
-- **Human URL:** https://delta.io/blog/2026-02-02-delta-catalog-managed-tables/
+Published plans, tiers and prices.
 
-#### Properties
+- [Delta Lake Plans Pricing](https://apis.io/plans/delta-lake/delta-lake-plans-pricing/)
 
-- [Documentation](https://delta.io/blog/2026-02-02-delta-catalog-managed-tables/)
-- [Protocol](https://github.com/delta-io/delta/blob/master/PROTOCOL.md)
+#### Rate limits (1)
 
-## Common Properties
+Published request limits.
+
+- [Delta Lake Rate Limits](https://apis.io/rate-limits/delta-lake/delta-lake-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Delta Lake Finops](https://apis.io/finops/delta-lake/delta-lake-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://delta.io/)
 - [Documentation](https://docs.delta.io/)
-- [GitHub Org](https://github.com/delta-io)
-- [Linux Foundation](https://lfaidata.foundation/projects/delta-lake/)
-- [Vocabulary](vocabulary/delta-lake-vocabulary.yml)
+- [Getting started](https://delta.io/learn/getting-started)
+- [API reference](https://docs.delta.io/delta-apidoc/)
+- [Support](https://delta.io/resources/getting-help)
+- [Blog](https://delta.io/blog/)
+- [Terms of service](https://lfprojects.org/policies/terms-of-use/)
+- [Privacy policy](https://lfprojects.org/policies/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-- **Kin Lane** - kin@apievangelist.com
+**Kin Score 46.6** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 45.5 |
+| Contract governance | 31.8 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 63.7 |
+| Access clarity | 21.1 |
+
+**Agent readiness 31.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/delta-lake/](https://apis.io/providers/delta-lake/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Delta Lake: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/delta-lake/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
