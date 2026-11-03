@@ -38,6 +38,9 @@ artifacts:
   grpc/delta-lake-delta-sharing-protocol.proto:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-02.yml:
+    method: unknown
+    evidence: no authorship recorded
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
@@ -47,7 +50,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-10-31T095417.yml:
+  kin/checks-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -104,6 +107,15 @@ artifacts:
   kin/score-2026-10-31T095417.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-01T171331.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-01T200237.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-02T082323.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/delta-lake-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -132,11 +144,17 @@ artifacts:
   packages/delta-lake-packages.yml:
     method: searched
     evidence: declared in the artifact
+  patterns/delta-lake-patterns.yml:
+    method: derived
+    evidence: declared in the artifact
   plans/delta-lake-plans-pricing.yml:
     method: searched
     evidence: declared in the artifact
   rate-limits/delta-lake-rate-limits.yml:
     method: searched
+    evidence: declared in the artifact
+  rules/delta-lake-rules.yml:
+    method: generated
     evidence: declared in the artifact
   sandbox/delta-lake-sandbox.yml:
     method: unknown
